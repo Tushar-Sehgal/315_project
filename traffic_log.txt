@@ -1,0 +1,7 @@
+Vehicle 0 crossed the road at a red light.
+Vehicle 0 crossed the road at a red light.
+Vehicle 4 crossed the road at a red light.
+Vehicle 0 crossed the road at a red light.
+Vehicle 3 crossed the road at a red light.
+Vehicle 4 crossed the road at a red light.
+Vehicle 0 crossed the road at a red light.
