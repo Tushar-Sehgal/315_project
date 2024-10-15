@@ -1,10 +1,14 @@
 #include "pedestrian.h"
 #include "traffic_light.h"
+#include <omp.h> // Include OpenMP
 
 Pedestrian::Pedestrian(int id, TrafficLight* light, std::mutex& mtx) : id(id), light(light), mtx(mtx) {}
 
 void Pedestrian::start() {
-    std::thread(&Pedestrian::requestCrossing, this).detach(); // Start the requestCrossing function in a new thread
+    #pragma omp parallel // Parallelize pedestrian behavior using OpenMP
+    {
+        std::thread(&Pedestrian::requestCrossing, this).detach(); // Start the requestCrossing function in a new thread
+    }
 }
 
 void Pedestrian::requestCrossing() {

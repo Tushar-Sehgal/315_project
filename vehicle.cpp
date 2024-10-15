@@ -1,6 +1,7 @@
 #include <random>
 #include "vehicle.h"
 #include "traffic_light.h"
+#include <omp.h> // Include OpenMP
 
 Vehicle::Vehicle(int id, TrafficLight* light, std::mutex& mtx) : id(id), light(light), mtx(mtx) {
     logFile.open("traffic_log.txt", std::ios::app); // Open log file in append mode
@@ -13,7 +14,10 @@ Vehicle::~Vehicle() {
 }
 
 void Vehicle::start() {
-    std::thread(&Vehicle::approachLight, this).detach(); // Start the approachLight function in a new thread
+    #pragma omp parallel // Parallelize vehicle behavior using OpenMP
+    {
+        std::thread(&Vehicle::approachLight, this).detach(); // Start the approachLight function in a new thread
+    }
 }
 
 void Vehicle::approachLight() {
